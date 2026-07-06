@@ -1,0 +1,30 @@
+name: publish
+
+# Trusted Publishing (OIDC) — no NODE_AUTH_TOKEN anywhere, npm >= 11.5.1.
+# Trigger: publish a GitHub Release (or run manually) after bumping versions
+# in package.json AND server.json (2x). Provenance attaches automatically.
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+      - run: npm install -g npm@latest
+      - run: npm ci
+      - run: node --check index.mjs
+      - run: node smoke.mjs
+      - run: node adversarial.mjs
+      - run: npm publish

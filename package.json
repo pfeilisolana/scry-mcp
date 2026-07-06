@@ -1,0 +1,22 @@
+{
+  "name": "scry-mcp",
+  "version": "0.1.0",
+  "mcpName": "io.github.pfeilisolana/scry-mcp",
+  "description": "Keyless MCP server for Scry Solana wallet intelligence: free coverage pre-check and catalog tools, plus paid x402 endpoint brokering. No custody, no API keys.",
+  "type": "module",
+  "bin": { "scry-mcp": "index.mjs" },
+  "files": ["index.mjs", "README.md"],
+  "engines": { "node": ">=20" },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pfeilisolana/scry-mcp.git"
+  },
+  "bugs": { "url": "https://github.com/pfeilisolana/scry-mcp/issues" },
+  "homepage": "https://solanahub.de/en/scry/agent-discovery/",
+  "author": "SOLANA·HUB / Scry (https://solanahub.de)",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0"
+  },
+  "keywords": ["mcp", "x402", "solana", "wallet-intelligence", "agent-payments", "usdc"],
+  "license": "MIT"
+}
