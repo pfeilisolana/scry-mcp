@@ -27,4 +27,10 @@ jobs:
       - run: node --check index.mjs
       - run: node smoke.mjs
       - run: node adversarial.mjs
-      - run: npm publish
+      # Provenance is generated from the GitHub OIDC id-token (id-token: write above),
+      # independent of the auth method. NPM_TOKEN (granular, publish scope) authenticates
+      # the first-ever publish of this new package; later releases can switch to tokenless
+      # trusted publishing once configured on npmjs.
+      - run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
