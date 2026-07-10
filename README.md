@@ -17,6 +17,33 @@ Scry HTTPS API.
 | `scry_catalog` | free | List the paid Scry x402 endpoints with prices and request objects. |
 | `scry_paid_endpoint` | free | Given a product id + wallet/mint, return the exact x402 URL, price, and how-to-pay. The agent then pays the Scry API directly. |
 
+## What agents can ask
+
+Scry is most useful when an agent already knows the research object and needs a
+bounded evidence route rather than a generic score:
+
+- **Solana wallet forensics:** resolve the full one-wallet evidence dossier with
+  coverage, provenance, freshness, and caveats.
+- **Solana wallet source of funds:** find the funding-lineage route and inspect
+  upstream funders, hop depth, and freshness before payment.
+- **Pump.fun wallet cohort risk:** select the cohort-screening route before
+  spending on individual wallet dossiers.
+
+Example prompts:
+
+```text
+Check whether this Solana wallet is covered by Scry before I approve a paid dossier.
+```
+
+```text
+Find the Scry route for tracing who funded a Solana wallet. Show the exact price,
+input object, and caveats, but do not pay.
+```
+
+```text
+Resolve the Scry Pump.fun wallet-cohort evidence route and explain what it is not for.
+```
+
 ## Install (Claude Desktop / Cursor / any MCP client)
 
 ```json

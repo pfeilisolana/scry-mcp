@@ -1,8 +1,8 @@
 {
   "name": "scry-mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "mcpName": "io.github.pfeilisolana/scry-mcp",
-  "description": "Keyless MCP server for Scry Solana wallet intelligence: free coverage pre-check and catalog tools, plus paid x402 endpoint brokering. No custody, no API keys.",
+  "description": "Keyless MCP bridge for Solana wallet forensics, funding lineage, Pump.fun cohort evidence, and other Scry x402 routes.",
   "type": "module",
   "bin": { "scry-mcp": "index.mjs" },
   "files": ["index.mjs", "README.md"],
@@ -14,9 +14,13 @@
   "bugs": { "url": "https://github.com/pfeilisolana/scry-mcp/issues" },
   "homepage": "https://solanahub.de/en/scry/agent-discovery/",
   "author": "SOLANA·HUB / Scry (https://solanahub.de)",
+  "scripts": {
+    "test": "node --check index.mjs && node smoke.mjs && node adversarial.mjs",
+    "prepublishOnly": "npm test"
+  },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.29.0"
   },
-  "keywords": ["mcp", "x402", "solana", "wallet-intelligence", "agent-payments", "usdc"],
+  "keywords": ["mcp", "model-context-protocol", "x402", "solana", "wallet-intelligence", "wallet-forensics", "funding-lineage", "source-of-funds", "pumpfun-risk", "agent-payments", "usdc"],
   "license": "MIT"
 }
