@@ -54,8 +54,8 @@ Resolve the Scry Pump.fun wallet-cohort evidence route and explain what it is no
 }
 ```
 
-Requires Node.js >= 20. No API keys, no account, no wallet configuration for the
-free tools. To actually pay for evidence, your agent needs its own x402 payment
+Requires Node.js 22.23.4+, 24.22.1+, or 26.12.1+ within those supported major lines.
+No API keys, no account, no wallet configuration for the free tools. To actually pay for evidence, your agent needs its own x402 payment
 layer (for example an x402 client wallet); this bridge only tells it where and
 how much.
 

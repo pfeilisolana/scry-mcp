@@ -6,7 +6,7 @@
   "type": "module",
   "bin": { "scry-mcp": "index.mjs" },
   "files": ["index.mjs", "README.md"],
-  "engines": { "node": ">=20" },
+  "engines": { "node": "^22.23.4 || ^24.22.1 || ^26.12.1" },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/pfeilisolana/scry-mcp.git"
@@ -15,7 +15,9 @@
   "homepage": "https://solanahub.de/en/scry/agent-discovery/",
   "author": "SOLANA·HUB / Scry (https://solanahub.de)",
   "scripts": {
-    "test": "node --check index.mjs && node smoke.mjs && node adversarial.mjs",
+    "security:node": "node scripts/check-node-security-floor.mjs",
+    "test:node-security": "node --test scripts/check-node-security-floor.test.mjs",
+    "test": "npm run security:node && npm run test:node-security && node --check index.mjs && node smoke.mjs && node adversarial.mjs",
     "prepublishOnly": "npm test"
   },
   "dependencies": {

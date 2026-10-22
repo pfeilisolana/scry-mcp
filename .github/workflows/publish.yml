@@ -20,8 +20,11 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: "22.23.4"
           registry-url: https://registry.npmjs.org
+      - name: Reject an unsafe Node runtime before dependencies
+        run: node scripts/check-node-security-floor.mjs
+      - run: node --test scripts/check-node-security-floor.test.mjs
       - run: npm install -g npm@latest
       - run: npm ci
       - run: node --check index.mjs
