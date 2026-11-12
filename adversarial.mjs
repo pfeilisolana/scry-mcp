@@ -56,6 +56,21 @@ await expectError("scry_paid_endpoint", { product: "wallet_address_forensics", a
 // happy paths
 await expectOk("scry_paid_endpoint", { product: "wallet_address_forensics", address: GOOD }, "/x402/wallet/" + GOOD + "/forensics");
 await expectOk("scry_paid_endpoint", { product: "quick-flag", address: GOOD }, "quick-flag");
+// The public offer requires x402 v2 PAYMENT-SIGNATURE on the paid retry.
+{
+  const result = await client.callTool({
+    name: "scry_paid_endpoint",
+    arguments: { product: "network_priority_fees_live" },
+  });
+  const detail = JSON.parse(result.content?.[0]?.text || "{}");
+  const correctRoute = detail.endpoint === "https://scry.solanahub.de/x402/network/priority-fees-live";
+  const correctInstructions = /PAYMENT-REQUIRED/.test(detail.how_to_pay || "")
+    && /PAYMENT-SIGNATURE/.test(detail.how_to_pay || "")
+    && !/X-PAYMENT/.test(detail.how_to_pay || "");
+  const ok = !result.isError && correctRoute && correctInstructions;
+  console.log(`${ok ? "PASS" : "FAIL"} priority-fees route and x402 v2 payment instructions`);
+  ok ? pass++ : fail++;
+}
 // connection pairwise
 await expectError("scry_paid_endpoint", { product: "wallet_connection", address: GOOD }, "address_b");
 await expectOk("scry_paid_endpoint", { product: "wallet_connection", address: GOOD, address_b: GOOD2 }, "a=" + GOOD);

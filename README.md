@@ -9,6 +9,42 @@ directly; for paid evidence it hands the agent the exact x402 endpoint URL and
 price, and the agent settles the USDC payment with **its own** wallet against the
 Scry HTTPS API.
 
+## Solana priority fees for transaction-building agents
+
+Get fee levels in micro-lamports per compute unit for the global network,
+Jupiter, Raydium, or your own account keys. Each API request costs **0.005 USDC**
+through x402 v2 on Solana or Base. Responses can be cached for 20 seconds.
+
+Start with the free MCP catalog, then call `scry_paid_endpoint` with this exact
+argument to resolve the fee route and its advertised price.
+
+```json
+{"product":"network_priority_fees_live"}
+```
+
+The global request uses a 50-slot lookback. Inspect its live payment offer with
+this unsigned request. HTTP 402 and the `PAYMENT-REQUIRED` response header are
+the expected result of this step.
+
+```sh
+curl -q --include --max-time 15 \
+  'https://scry.solanahub.de/x402/network/priority-fees-live?preset=global&lookback_slots=50'
+```
+
+For the paid request, use your configured x402 v2 client with an approved limit
+of **0.005 USDC**, which is **5000 atomic USDC units**. Check the unit expected
+by your client. Its signed retry uses `PAYMENT-SIGNATURE`. Follow the product
+page to choose the request scope, check the payment offer and use the response
+with your transaction's compute-unit limit.
+
+The fee levels and source timestamps describe the observed fee market.
+Transaction inclusion depends on additional network and transaction conditions.
+The product guide explains the account scope, freshness and fee-budget calculation.
+
+- [Priority Fees request builder and payment guide](https://solanahub.de/en/scry/solana-priority-fees-api/)
+- [Free frozen response example](https://scry.solanahub.de/x402/examples/priority-fees-live.json)
+- [Transaction fee workflow for agents](https://scry.solanahub.de/x402/workflows/transaction-fee-check)
+
 ## Tools
 
 | Tool | Cost | What it does |
@@ -84,7 +120,7 @@ and safe to run anywhere.
 - Product catalog: <https://scry.solanahub.de/x402/products.json>
 - Discovery: <https://scry.solanahub.de/x402/discovery.json>
 - Human docs: <https://solanahub.de/en/scry/agent-discovery/>
-- Runnable payment examples: <https://github.com/pfeilisolana/scry-x402-examples>
+- Payment guide and request builder: <https://solanahub.de/en/scry/solana-priority-fees-api/>
 
 ## License
 

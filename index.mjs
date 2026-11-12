@@ -213,7 +213,7 @@ server.setRequestHandler(CallToolRequestSchema, async (req, extra) => {
         price: match.price,
         payment: "x402 v2 exact USDC on Solana or Base rails. No API keys, no account.",
         how_to_pay:
-          "GET the endpoint, read the HTTP 402 PAYMENT-REQUIRED header (base64 x402 v2 accepts[]), sign the USDC payment with your own wallet, retry with the X-PAYMENT header.",
+          "GET the endpoint and read the HTTP 402 PAYMENT-REQUIRED header (base64 x402 v2 accepts[]). Select an accepted network and verify the asset, payTo, amount and resource against your approved budget. Use an x402 v2 client to create the payment payload with your own wallet, then retry the same request with PAYMENT-SIGNATURE. Use the payment client to inspect the final response and settlement result.",
         note: "This bridge does not custody funds; you pay the Scry API directly.",
       });
     }
